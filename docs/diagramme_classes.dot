@@ -1,0 +1,37 @@
+digraph G {
+  graph [rankdir=LR, fontname="Helvetica", nodesep=0.8, ranksep=1.2, bgcolor="white"];
+  node  [shape=plaintext, fontname="Helvetica", fontsize=11];
+  edge  [fontname="Helvetica", fontsize=10, arrowhead=none];
+
+  Client [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#FFF8E1">
+<TR><TD BGCOLOR="#FFE082"><B>Client</B></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT">- id : Long<BR/>- nom : String<BR/>- prenom : String<BR/>- email : String<BR/>- telephone : String<BR/>- adresse : String</TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT">+ getters / setters</TD></TR>
+</TABLE>>];
+
+  Commande [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#E3F2FD">
+<TR><TD BGCOLOR="#90CAF9"><B>Commande</B></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT">- id : Long<BR/>- dateCommande : LocalDate<BR/>- statut : String<BR/>- client : Client<BR/>- lignes : List&lt;LigneCommande&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT">+ getTotal() : double</TD></TR>
+</TABLE>>];
+
+  LigneCommande [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#E8F5E9">
+<TR><TD BGCOLOR="#A5D6A7"><B>LigneCommande</B></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT">- id : Long<BR/>- quantite : int<BR/>- prixUnitaire : double<BR/>- commande : Commande<BR/>- produit : Produit</TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT">+ getSousTotal() : double</TD></TR>
+</TABLE>>];
+
+  Produit [label=<
+<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" BGCOLOR="#FCE4EC">
+<TR><TD BGCOLOR="#F48FB1"><B>Produit</B></TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT">- id : Long<BR/>- nom : String<BR/>- description : String<BR/>- prix : double<BR/>- quantiteStock : int</TD></TR>
+<TR><TD ALIGN="LEFT" BALIGN="LEFT">+ getters / setters</TD></TR>
+</TABLE>>];
+
+  Client -> Commande [taillabel="1", headlabel="0..*", label="passe"];
+  Commande -> LigneCommande [arrowtail=diamond, dir=back, taillabel="1", headlabel="1..*", label="contient"];
+  LigneCommande -> Produit [taillabel="0..*", headlabel="1", label="concerne"];
+}
